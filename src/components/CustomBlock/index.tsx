@@ -1,5 +1,5 @@
 import React, { PropsWithChildren, useEffect, useRef, useState } from "react";
-import type { RenderElementProps } from "slate-react";
+import type { EditorElementRenderProps as RenderElementProps } from "@tau/plugins";
 import { SourceBlockEditor as PreviewWithEditor, useSourceBlock } from "@tau/plugins";
 
 import { type CustomBlockElement } from "../../types";

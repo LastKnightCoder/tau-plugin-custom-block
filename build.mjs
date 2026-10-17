@@ -60,6 +60,7 @@ await writeFile(
   JSON.stringify({ ...manifest, styles: "main.css", integrity }, null, 2)
 );
 await writeFile(path.join(out, "README.md"), await readFile(path.join(root, "README.md")));
+await writeFile(path.join(out, "LICENSE"), await readFile(path.join(root, "LICENSE")));
 await writeFile(path.join(out, "CHANGELOG.md"), await readFile(path.join(root, "CHANGELOG.md")));
 const zip = new AdmZip();
 zip.addLocalFolder(out, manifest.id);
