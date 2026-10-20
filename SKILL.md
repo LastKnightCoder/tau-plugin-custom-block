@@ -101,7 +101,7 @@ const Component = () => {
 
 ## 行为
 
-- `addEventListener`、`setInterval`、`requestAnimationFrame`、`ResizeObserver` 都要在 effect 的清理函数里释放：块会因编辑、滚动、主题切换反复挂载卸载。
+- `addEventListener`、`setInterval`、`requestAnimationFrame`、`ResizeObserver` 都要在 effect 的清理函数里释放：块可能因源码编辑、滚动而卸载。主题变化只刷新组件，不重新编译源码。
 - 只通过 ref 操作自己的 DOM；不用 `document.querySelector` 读写块外元素，不改 `document.body`。
 - 原生事件对象的 `eventPhase`、`currentTarget` 只在派发期间有效：在处理器里同步读出再交给 `setState`，不要在更新函数里读 `event`。
 - 演示事件目标、冒泡路径时，目标元素内部的文字标签加 `pointer-events-none`，否则点在文字上时目标会变成文字节点所在的元素。

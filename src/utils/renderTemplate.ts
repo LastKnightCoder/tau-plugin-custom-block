@@ -3,6 +3,7 @@ import * as SharedReact from "react";
 import * as SharedReactDOM from "react-dom/client";
 import * as SharedUi from "@tau/ui";
 import type { PluginRuntimeStyleCompiler as RuntimeStyleCompiler } from "@tau/plugins";
+import { compileTsx } from "./compiler";
 
 /** 宿主传入的主题：明暗 + 按 token 词取当前计算值（`accent` 取 --ed-accent，缺省回落 --tau-accent） */
 export interface CustomBlockTheme {
@@ -202,10 +203,10 @@ export const compileAndExecuteCustomBlock = async (
         return undefined;
       }
 
-      // 动态导入编译期依赖（渲染用的 react/react-dom 在缓存命中路径外按需导入）
-      const [React, Babel, TauUi, icons] = await Promise.all([
+      // Babel 只在 Worker 内运行，React 组件仍在宿主渲染线程执行。
+      const [React, compiledCode, TauUi, icons] = await Promise.all([
         Promise.resolve(SharedReact),
-        import("@babel/standalone"),
+        compileTsx(content, abortSignal),
         Promise.resolve(SharedUi),
         import("lucide-react"),
       ]);
@@ -215,21 +216,6 @@ export const compileAndExecuteCustomBlock = async (
       }
 
       const { useTokens } = ensureTemplateHooks(React);
-
-      const compiledCode =
-        Babel.transform(content, {
-          presets: [
-            Babel.availablePresets["react"],
-            [
-              Babel.availablePresets["typescript"],
-              {
-                onlyRemoveTypeImports: true,
-                allExtensions: true,
-                isTSX: true,
-              },
-            ],
-          ],
-        }).code || "";
 
       if (shouldAbort()) {
         return undefined;
@@ -354,6 +340,7 @@ export const compileAndExecuteCustomBlock = async (
     };
   } catch (error) {
     disposeRuntimeStyle();
+    if (abortSignal?.aborted) return undefined;
     console.error("CustomBlock compilation error:", error);
     if (targetElement) {
       targetElement.innerHTML = renderErrorMarkup(error);

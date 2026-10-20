@@ -1,5 +1,6 @@
 import { act } from "react";
 import { afterEach, describe, expect, it, vi } from "vitest";
+import { compileTsx } from "../compiler";
 
 import {
   compileAndExecuteCustomBlock,
@@ -69,6 +70,22 @@ const Component = () => {
     });
     return container;
   };
+
+  it("源码不变时连续点击与主题刷新不重新编译，状态也不重置", async () => {
+    const container = await renderTemplate(`
+const Component = () => {
+  const [count, setCount] = React.useState(0);
+  return <button onClick={() => setCount(value => value + 1)}>{count}</button>;
+};
+`);
+    const calls = vi.mocked(compileTsx).mock.calls.length;
+    for (let count = 1; count <= 5; count++) {
+      await act(async () => { container.querySelector("button")!.click(); });
+      await act(async () => { rerenderCustomBlockTheme(container, createTheme(count % 2 === 0)); });
+      expect(container.textContent).toBe(String(count));
+    }
+    expect(vi.mocked(compileTsx).mock.calls.length).toBe(calls);
+  });
 
   it("使用已移除绑定（antd）的模板：错误收在本块内", { timeout: 20000 }, async () => {
     vi.spyOn(console, "error").mockImplementation(() => {});

@@ -10,7 +10,7 @@ function extractExamples(markdown: string) {
   const examples: Array<{ title: string; code: string }> = [];
   let title = "";
   const fence = /^### (.+)$|```custom-block\n([\s\S]*?)\n```/gm;
-  for (const match of markdown.matchAll(fence)) {
+  for (const match of markdown.replace(/\r\n/g, "\n").matchAll(fence)) {
     if (match[1] !== undefined) title = match[1];
     else examples.push({ title: title || "输出格式", code: match[2] });
   }

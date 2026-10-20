@@ -19,6 +19,16 @@ const shared = [
   "react/jsx-runtime",
   "react/jsx-dev-runtime",
 ];
+const worker = await build({
+  absWorkingDir: root,
+  entryPoints: ["src/utils/compiler.worker.ts"],
+  bundle: true,
+  write: false,
+  format: "iife",
+  platform: "browser",
+  target: "es2022",
+  minify: true,
+});
 const result = await build({
   absWorkingDir: root,
   entryPoints: ["src/plugin.ts"],
@@ -33,6 +43,17 @@ const result = await build({
   loader: { ".md": "text" },
   metafile: true,
   define: { "process.env.NODE_ENV": '"production"' },
+  plugins: [{
+    name: "inline-compiler-worker",
+    setup(build) {
+      build.onResolve({ filter: /^custom-block:compiler-worker$/ }, () => ({
+        path: "compiler-worker", namespace: "compiler-worker",
+      }));
+      build.onLoad({ filter: /.*/, namespace: "compiler-worker" }, () => ({
+        contents: worker.outputFiles[0].text, loader: "text",
+      }));
+    },
+  }],
 });
 for (const input of Object.keys(result.metafile.inputs)) {
   if (input.startsWith("../") && !input.includes("node_modules/"))
