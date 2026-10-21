@@ -68,7 +68,7 @@ type CustomBlockRuntimeContainer = HTMLElement & {
 };
 
 const renderErrorMarkup = (error: unknown) =>
-  `<div class="text-tau-body text-danger p-4">渲染错误: ${escapeHtml(error instanceof Error ? error.message : String(error))}</div>`;
+  `<div class="cb:text-tau-body cb:text-danger cb:p-4">渲染错误: ${escapeHtml(error instanceof Error ? error.message : String(error))}</div>`;
 
 const escapeHtml = (value: string) => value.replace(/[&<>"']/g, char => `&#${char.charCodeAt(0)};`);
 

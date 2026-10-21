@@ -68,10 +68,15 @@ const compiler = await compile(await readFile(path.join(root, "src/styles.css"),
   base: path.join(root, "src"),
   onDependency() {},
 });
-await writeFile(
-  path.join(out, "main.css"),
-  compiler.build(new Scanner({ sources: compiler.sources }).scan())
-);
+const utilities = compiler.build(new Scanner({ sources: compiler.sources }).scan());
+// 不带前缀的工具类会覆盖 Tau 与博客模板的同名类（如模板的 md:flex 被 .hidden 盖掉）
+const bare = [
+  ...utilities.replace(/\/\*[\s\S]*?\*\//g, "").matchAll(/\.((?:\\.|[A-Za-z_-])(?:\\.|[\w-])*)/g),
+]
+  .map(match => match[1].replace(/\\(.)/g, "$1"))
+  .filter(name => !name.startsWith("cb:"));
+if (bare.length) throw new Error(`Tailwind 类名需要 cb: 前缀：${[...new Set(bare)].join(" ")}`);
+await writeFile(path.join(out, "main.css"), utilities);
 const skills = await collectSkills(out);
 const integrity = {};
 for (const file of skills.files)

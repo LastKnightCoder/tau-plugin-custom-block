@@ -23,6 +23,8 @@ pnpm build
 
 产物在 dist/package，ZIP 为 dist/tau.custom-block-<版本>.zip。仅依赖公开 npm SDK 0.8.0、UI 契约与普通 npm 包；主题工具类从 @tau/plugins/tailwind.css 编译，不引用主项目源码。
 
+插件自身组件的类名一律带 `cb:` 前缀（如 `cb:flex cb:md:hidden`）：插件样式和 Tau、博客模板的样式在同一页面里，不带前缀的工具类会排在宿主的响应式写法之后把它们覆盖掉。开启前缀后，不带前缀的类不会生成样式；构建产物里出现不带前缀的类选择器会直接报错。块里由用户编写的组件源码（含 `src/insert.ts` 的默认模板）由 Tau 在运行时编译，不加前缀。
+
 src/index.tsx 声明编辑器扩展，src/markdown.ts 声明纯 codec，src/plugin.ts 为发布入口。SKILL.md 随插件注册，src/utils/renderTemplate.ts 承载组件执行、主题变化和清理生命周期；compiler.worker.ts 独占 Babel 转换，构建时嵌入为 Blob Worker 源码，不依赖外部脚本 URL。compiler.ts 合并同源在途转换、处理取消与线程失败，空闲 30 秒后释放线程。Worker 不可用时显示错误，不回退到界面线程编译。组件函数和 React/DOM 仍在界面线程运行。
 
 单元测试验证插件自身编译、清理和 Skill 示例，tests/host-ui.tsx 以测试替身隔离宿主 UI；实际编辑器、Markdown 往返、插入和博客发布由 Tau 主项目加载发布包做集成验证。
