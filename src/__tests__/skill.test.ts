@@ -2,7 +2,7 @@ import { act } from "react";
 import "vitest-canvas-mock";
 import { afterEach, beforeAll, describe, expect, it, vi } from "vitest";
 import { compileAndExecuteCustomBlock } from "../utils/renderTemplate";
-import customBlockSkill from "../../SKILL.md?raw";
+import customBlockSkill from "../../skills/authoring/SKILL.md?raw";
 (globalThis as { IS_REACT_ACT_ENVIRONMENT?: boolean }).IS_REACT_ACT_ENVIRONMENT = true;
 
 /** 按「### 标题」切出 skill 里的每个 custom-block 示例；首个示例在「输出格式」节，标题为空 */

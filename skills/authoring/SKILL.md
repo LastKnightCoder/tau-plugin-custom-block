@@ -1,3 +1,8 @@
+---
+name: "自定义组件块"
+description: "用户要求可交互的 React、DOM、Canvas 演示时加载，按运行时契约与主题规范生成 custom-block。"
+---
+
 # 自定义组件块（custom-block）
 
 在文档里嵌入一个可交互的 React 组件，多用于演示 CSS / DOM / 图形特性。块会渲染在正文流中，外观要和应用融为一体：只用主题语义色、应用的字号与圆角刻度、`ui` 控件。
