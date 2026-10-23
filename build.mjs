@@ -90,7 +90,7 @@ for (const file of ["main.js", "main.css"])
     .digest("hex");
 await writeFile(
   path.join(out, "manifest.json"),
-  JSON.stringify(buildPortablePluginManifest({ ...manifest, ...(skills.ids.length ? { skills: skills.ids } : {}), styles: "main.css", integrity }), null, 2)
+  JSON.stringify(buildPortablePluginManifest(manifest, { main: "main.js", ...(skills.ids.length ? { skills: skills.ids } : {}), styles: "main.css", integrity }), null, 2)
 );
 await writeFile(path.join(out, "README.md"), await readFile(path.join(root, "README.md")));
 await writeFile(path.join(out, "LICENSE"), await readFile(path.join(root, "LICENSE")));
