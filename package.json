@@ -8,7 +8,7 @@
     "build": "pnpm check && node build.mjs"
   },
   "dependencies": {
-    "@tau/plugins": "npm:@xiongtao.xt/tau-plugins@0.36.0",
+    "@tau/plugins": "npm:@xiongtao.xt/tau-plugins@0.37.0",
     "@babel/standalone": "^7.22.2",
     "@loadable/component": "^5.15.3",
     "lucide-react": "^0.399.0",

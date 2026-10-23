@@ -1,5 +1,5 @@
 {
-  "formatVersion": 1,
+  "formatVersion": 3,
   "id": "tau.custom-block",
   "name": "自定义组件块",
   "description": "在文档中编写并预览可交互的 React 组件。",
@@ -12,10 +12,45 @@
     "React"
   ],
   "version": "1.0.9",
-  "minAppVersion": "0.59.0",
   "apiVersion": 1,
-  "platform": "desktop",
+  "platform": "portable",
   "format": "cjs",
   "main": "main.js",
-  "editor": true
+  "editor": true,
+  "profile": "web-v1",
+  "targets": {
+    "desktop": {
+      "minAppVersion": "0.59.2",
+      "required": [
+        "sourceEditor",
+        "runtimeStyles"
+      ],
+      "optional": [],
+      "elements": {
+        "custom-block": "edit"
+      }
+    },
+    "android": {
+      "minAppVersion": "0.2.3",
+      "required": [
+        "sourceEditor",
+        "runtimeStyles"
+      ],
+      "optional": [],
+      "elements": {
+        "custom-block": "edit"
+      }
+    },
+    "ios": {
+      "minAppVersion": "0.2.3",
+      "required": [
+        "sourceEditor",
+        "runtimeStyles"
+      ],
+      "optional": [],
+      "elements": {
+        "custom-block": "edit"
+      }
+    }
+  }
 }

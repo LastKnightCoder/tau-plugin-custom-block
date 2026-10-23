@@ -5,6 +5,7 @@ import AdmZip from "adm-zip";
 import { readFile, writeFile, mkdir } from "node:fs/promises";
 import { createHash } from "node:crypto";
 import { collectSkills } from "./skills.mjs";
+import { buildPortablePluginManifest } from "@tau/plugins/portable";
 import path from "node:path";
 
 const root = import.meta.dirname;
@@ -89,7 +90,7 @@ for (const file of ["main.js", "main.css"])
     .digest("hex");
 await writeFile(
   path.join(out, "manifest.json"),
-  JSON.stringify({ ...manifest, ...(skills.ids.length ? { skills: skills.ids } : {}), styles: "main.css", integrity }, null, 2)
+  JSON.stringify(buildPortablePluginManifest({ ...manifest, ...(skills.ids.length ? { skills: skills.ids } : {}), styles: "main.css", integrity }), null, 2)
 );
 await writeFile(path.join(out, "README.md"), await readFile(path.join(root, "README.md")));
 await writeFile(path.join(out, "LICENSE"), await readFile(path.join(root, "LICENSE")));
