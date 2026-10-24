@@ -1,6 +1,6 @@
 {
   "name": "tau-plugin-custom-block",
-  "version": "1.0.10",
+  "version": "1.0.11",
   "private": true,
   "scripts": {
     "check": "tsc --noEmit",
@@ -8,7 +8,7 @@
     "build": "pnpm check && node build.mjs"
   },
   "dependencies": {
-    "@tau/plugins": "npm:@xiongtao.xt/tau-plugins@0.41.0",
+    "@tau/plugins": "npm:@xiongtao.xt/tau-plugins@0.42.0",
     "@babel/standalone": "^7.22.2",
     "@loadable/component": "^5.15.3",
     "lucide-react": "^0.399.0",

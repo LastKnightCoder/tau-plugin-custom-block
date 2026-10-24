@@ -4,7 +4,7 @@
   "description": "在文档中编写并预览可交互的 React 组件。",
   "categories": ["editor", "ai"],
   "keywords": ["自定义组件", "React"],
-  "version": "1.0.10",
+  "version": "1.0.11",
   "targets": {
     "desktop": {
       "minAppVersion": "0.59.4"
