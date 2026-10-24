@@ -2,18 +2,24 @@
   "id": "tau.custom-block",
   "name": "自定义组件块",
   "description": "在文档中编写并预览可交互的 React 组件。",
-  "categories": ["editor", "ai"],
-  "keywords": ["自定义组件", "React"],
-  "version": "1.0.11",
+  "categories": [
+    "editor",
+    "ai"
+  ],
+  "keywords": [
+    "自定义组件",
+    "React"
+  ],
+  "version": "1.0.12",
   "targets": {
     "desktop": {
-      "minAppVersion": "0.59.4"
+      "minAppVersion": "0.59.5"
     },
     "android": {
-      "minAppVersion": "0.2.4"
+      "minAppVersion": "0.2.7"
     },
     "ios": {
-      "minAppVersion": "0.2.4"
+      "minAppVersion": "0.2.7"
     }
   }
 }

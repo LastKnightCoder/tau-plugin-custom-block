@@ -1,3 +1,4 @@
+import { editorMetrics } from "./metrics";
 import { definePlugin } from "@tau/plugins";
 import { customBlockExtension } from "./index";
 import { customBlockCodec } from "./markdown";
@@ -8,5 +9,6 @@ export default definePlugin({
   name: manifest.name,
   version: manifest.version,
   editorExtensions: [customBlockExtension],
+  editorMetrics,
   editorCodecs: [customBlockCodec],
 });
