@@ -1,4 +1,5 @@
 minimumReleaseAgeExclude:
+  - "@xiongtao.xt/tau-plugins@0.45.0"
   - "@xiongtao.xt/tau-plugins"
   - "@xiongtao.xt/tau-ui"
 

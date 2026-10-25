@@ -72,20 +72,14 @@ const CustomBlockElement: React.FC<PropsWithChildren<CustomBlockProps>> = props 
   const { attributes, children, element } = props;
   const { content } = element;
 
-  const { update } = useSourceBlock(element);
-  const handleChange = (content: string) => {
-    update({ content });
-  };
-
   return (
     <div className="cb:relative cb:cursor-pointer" {...attributes}>
       <PreviewWithEditor
         mode={"jsx"}
         title="自定义块"
         icon={Blocks}
-        initValue={content}
+        field="content"
         element={element}
-        onChange={handleChange}
       >
         <CustomBlock content={content} element={element} />
       </PreviewWithEditor>

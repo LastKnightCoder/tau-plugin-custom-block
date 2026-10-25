@@ -28,6 +28,8 @@ const customBlockExtension = defineExtension({
   elements: [
     defineElement<CustomBlockElement>({
       type: "custom-block",
+      dataVersion: 1,
+      collaboration: { textFields: ["content"] },
       kind: "block",
       drag: true,
       isVoid: true,

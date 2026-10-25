@@ -10,7 +10,7 @@
     "自定义组件",
     "React"
   ],
-  "version": "1.0.12",
+  "version": "1.0.13",
   "targets": {
     "desktop": {
       "minAppVersion": "0.59.5"
