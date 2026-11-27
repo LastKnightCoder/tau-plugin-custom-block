@@ -1,8 +1,9 @@
 import React, { PropsWithChildren, useEffect, useRef, useState } from "react";
 import type { EditorElementRenderProps as RenderElementProps } from "@tau/plugins";
-import { SourceBlockEditor as PreviewWithEditor, useSourceBlock } from "@tau/plugins";
+import { SourceBlockEditor as PreviewWithEditor, useI18n, useSourceBlock } from "@tau/plugins";
 
 import { type CustomBlockElement } from "../../types";
+import { messages } from "../../i18n";
 import { useReportPreviewError } from "@tau/plugins";
 import { compileAndExecuteCustomBlock, rerenderCustomBlockTheme } from "../../utils/renderTemplate";
 import { Blocks } from "lucide-react";
@@ -71,12 +72,13 @@ const CustomBlock = (props: { content: string; element: CustomBlockElement }) =>
 const CustomBlockElement: React.FC<PropsWithChildren<CustomBlockProps>> = props => {
   const { attributes, children, element } = props;
   const { content } = element;
+  const { t } = useI18n(messages);
 
   return (
     <div className="cb:relative cb:cursor-pointer" {...attributes}>
       <PreviewWithEditor
         mode={"jsx"}
-        title="自定义块"
+        title={t("block.title")}
         icon={Blocks}
         field="content"
         element={element}
